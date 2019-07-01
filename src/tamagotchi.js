@@ -14,6 +14,7 @@ export class Pet {
       this.checkFeed(-1);
       this.checkPlay(-1);
       this.checkHealth();
+      showInfo(userPet);
     }, 1000);
   }
 
@@ -49,13 +50,10 @@ export class Pet {
 
   checkFeed(value) {
     if(this.fed + value >= 100) {
-      console.log("Ran over");
       this.fed = 100;
     } else if(this.fed + value <= 0) {
-      console.log("Ran dead");
       this.dead = true;
     } else {
-      console.log("Ran under");
       this.fed += value;
     }
   }
