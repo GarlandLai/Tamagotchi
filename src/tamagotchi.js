@@ -13,12 +13,7 @@ export class Pet {
       this.checkEnergy(1);
       this.checkFeed(-1);
       this.checkPlay(-1);
-
-      if(this.dead) {
-        return console.log('Your pet died, you suck!');
-      } else if (this.depressed) {
-        return console.log('Your pet doesn\'t love you anymore');
-      }
+      this.checkHealth();
     }, 1000);
   }
 
@@ -32,6 +27,14 @@ export class Pet {
     this.checkPlay(15);
     this.checkFeed(5);
     this.checkEnergy(-20);
+  }
+
+  checkHealth() {
+    if(this.dead) {
+      return console.log('Your pet died, you suck!');
+    } else if (this.depressed) {
+      return console.log('Your pet doesn\'t love you anymore');
+    }
   }
 
   checkEnergy(value) {
