@@ -1,3 +1,4 @@
+import { showInfo, showDead, showDepressed } from './../src/main.js';
 import $ from 'jquery';
 
 export class Pet {
@@ -10,13 +11,13 @@ export class Pet {
     this.depressed = false;
   }
 
-  game() {
+  game(pet) {
     let gameTimer = setInterval(() => {
       this.checkEnergy(10);
       this.checkFeed(-5);
       this.checkHappiness(-5);
       this.checkHealth(gameTimer);
-      this.showInfo();
+      showInfo(pet);
     }, 100);
   }
 
@@ -35,12 +36,10 @@ export class Pet {
   checkHealth(timer) {
     if(this.dead) {
       clearInterval(timer);
-      $('#output').hide();
-      $('#endGame').text('Your pet died, you suck!');
+      showDead(this);
     } else if (this.depressed) {
       clearInterval(timer);
-      $('#output').hide();
-      $('#endGame').text('Your pet doesn\'t love you anymore');
+      showDepressed(this);
     }
   }
 
@@ -75,14 +74,6 @@ export class Pet {
     } else {
       this.happiness += value;
     }
-  }
-
-  showInfo() {
-    $("#nameOutput").text(`Name: ${this.name}`);
-    $("#energyOutput").text(`Energy: ${this.energy}`);
-    $("#fedOutput").text(`Fed: ${this.fed}`);
-    $("#happinessOutput").text(`Happiness: ${this.happiness}`);
-    $("#petForm").hide();
   }
 
 }
