@@ -13,4 +13,10 @@ $(document).ready(function() {
     console.log(userPet);
     userPet.game();
   });
+  $('#feed').click(function(){
+      userPet.feed();
+  });
+  $('#play').click(function(){
+      userPet.play();
+  });
 });

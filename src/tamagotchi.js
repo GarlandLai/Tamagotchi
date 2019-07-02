@@ -3,47 +3,52 @@ import $ from 'jquery';
 export class Pet {
   constructor(name) {
     this.name = name;
-    this.energy = 100;
-    this.fed = 100;
-    this.happiness = 100;
+    this.energy = 1000;
+    this.fed = 1000;
+    this.happiness = 1000;
     this.dead = false;
     this.depressed = false;
   }
 
   game() {
-    setInterval(() => {
-      this.checkEnergy(1);
-      this.checkFeed(-1);
-      this.checkHappiness(-1);
-      this.checkHealth();
+    let gameTimer = setInterval(() => {
+      this.checkEnergy(10);
+      this.checkFeed(-5);
+      this.checkHappiness(-5);
+      this.checkHealth(gameTimer);
       this.showInfo();
-    }, 1000);
+    }, 100);
   }
 
   feed() {
-    this.checkFeed(10);
-    this.checkHappiness(5);
-    this.checkEnergy(-15);
+    this.checkFeed(100);
+    this.checkHappiness(50);
+    this.checkEnergy(-150);
   }
 
   play() {
-    this.checkHappiness(15);
-    this.checkFeed(5);
-    this.checkEnergy(-20);
+    this.checkHappiness(150);
+    this.checkFeed(-50);
+    this.checkEnergy(-100);
   }
 
-  checkHealth() {
+  checkHealth(timer) {
     if(this.dead) {
-      return console.log('Your pet died, you suck!');
+      clearInterval(timer);
+      $('#output').hide();
+      $('#endGame').text('Your pet died, you suck!');
     } else if (this.depressed) {
-      return console.log('Your pet doesn\'t love you anymore');
+      clearInterval(timer);
+      $('#output').hide();
+      $('#endGame').text('Your pet doesn\'t love you anymore');
     }
   }
 
   checkEnergy(value) {
-    if(this.energy + value >= 100) {
-      this.energy = 100;
+    if(this.energy + value >= 1000) {
+      this.energy = 1000;
     } else if(this.energy + value <= 0) {
+      this.energy = 0;
       this.dead = true;
     } else {
       this.energy += value;
@@ -51,9 +56,10 @@ export class Pet {
   }
 
   checkFeed(value) {
-    if(this.fed + value >= 100) {
-      this.fed = 100;
+    if(this.fed + value >= 1000) {
+      this.fed = 1000;
     } else if(this.fed + value <= 0) {
+      this.fed = 0;
       this.dead = true;
     } else {
       this.fed += value;
@@ -61,9 +67,10 @@ export class Pet {
   }
 
   checkHappiness(value) {
-    if(this.happiness + value >= 100) {
-      this.happiness = 100;
+    if(this.happiness + value >= 1000) {
+      this.happiness = 1000;
     } else if(this.happiness + value <= 0) {
+      this.happiness = 0;
       this.depressed = true;
     } else {
       this.happiness += value;
